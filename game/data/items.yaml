@@ -1,0 +1,198 @@
+# game/data/items.yaml
+# -----------------------------------------------------------------------------
+# Item definitions for Zombie Love Revival.
+#
+# This file defines all items used by:
+#   - tools/generate_rpy_from_yaml.py (validates and previews item data)
+#   - game/systems/inventory_system.rpy (item_registry at runtime)
+#
+# Format notes:
+#   - id:       snake_case, unique identifier
+#   - type:     consumable | medical | tool | key_item | trade | misc
+#   - weight:   relative weight (1 = light; 5 = very heavy) — for future capacity system
+#   - value:    trade value in "marks" (Millhaven's informal currency)
+#   - stackable: whether multiple can be held as a single stack
+# -----------------------------------------------------------------------------
+
+items:
+
+  # --- Consumables ---
+
+  - id: water_bottle
+    name: "Water Bottle"
+    description: "Clean water. Getting harder to find every month."
+    type: consumable
+    weight: 1
+    value: 3
+    stackable: true
+    flavor: >
+      The label says Cascade Springs. There's no Cascade Springs anymore.
+      There's just the water.
+
+  - id: energy_bar
+    name: "Energy Bar"
+    description: "Stale. Still better than nothing. Barely."
+    type: consumable
+    weight: 1
+    value: 1
+    stackable: true
+    flavor: >
+      Peanut butter chocolate chip. It tastes like someone's memory of
+      peanut butter chocolate chip.
+
+  - id: canned_food
+    name: "Canned Food"
+    description: "Label's gone. Could be beans. Could be peaches. It's something."
+    type: consumable
+    weight: 2
+    value: 2
+    stackable: true
+    flavor: >
+      You've learned to be grateful for mystery.
+
+  # --- Medical ---
+
+  - id: bandage
+    name: "Bandage"
+    description: "Clean bandage. Keep wounds from getting infected."
+    type: medical
+    weight: 1
+    value: 4
+    stackable: true
+    flavor: >
+      First aid basics. Half the shelter's medical knowledge comes from
+      a book Sable found in a pediatrician's office.
+
+  - id: medication
+    name: "Medication"
+    description: "Prescription. The name on the bottle isn't yours."
+    type: medical
+    weight: 1
+    value: 8
+    stackable: true
+    flavor: >
+      Someone needed these. Probably still needs them, somewhere.
+      You try not to think about it too long.
+
+  - id: antiseptic
+    name: "Antiseptic"
+    description: "Prevents infection. A small victory in a world of infections."
+    type: medical
+    weight: 1
+    value: 5
+    stackable: true
+    flavor: >
+      Burn. That means it's working.
+
+  # --- Tools ---
+
+  - id: crowbar
+    name: "Crowbar"
+    description: "Heavy, reliable, multipurpose. The classic."
+    type: tool
+    weight: 3
+    value: 6
+    stackable: false
+    flavor: >
+      Crow calls his 'Old Reliable'. You have your own. You haven't named yours.
+      You're holding out.
+
+  - id: flashlight
+    name: "Flashlight"
+    description: "Working flashlight with batteries that actually work. Rare."
+    type: tool
+    weight: 2
+    value: 10
+    stackable: false
+    flavor: >
+      The dark means different things now. Light means more.
+
+  - id: rope
+    name: "Rope"
+    description: "Ten meters of decent rope. Countless uses."
+    type: tool
+    weight: 2
+    value: 4
+    stackable: false
+    flavor: >
+      The knot at the end was tied by someone who knew what they were doing.
+
+  - id: lockpick_set
+    name: "Lockpick Set"
+    description: "Small and easy to carry. Harder to use than movies suggest."
+    type: tool
+    weight: 1
+    value: 12
+    stackable: false
+    flavor: >
+      Takes patience. Everything good takes patience now.
+
+  # --- Key Items ---
+
+  - id: notebook
+    name: "Notebook"
+    description: "Half-filled. Someone's thoughts. You try not to read it."
+    type: key_item
+    weight: 1
+    value: 0    # priceless or worthless, depending who you ask
+    stackable: false
+    flavor: >
+      The handwriting changes partway through. Smaller. Faster.
+      Something happened around page forty.
+
+  - id: shelter_9_keycard
+    name: "Shelter 9 Keycard"
+    description: "Grants access to Shelter 9's secured sections."
+    type: key_item
+    weight: 0
+    value: 0
+    stackable: false
+    flavor: >
+      Sable gave you this on day twelve. You didn't realize what it meant
+      until day thirty.
+
+  - id: cultivator_sample
+    name: "Bloom Sample"
+    description: "A sealed container. The Cultivators will want this."
+    type: key_item
+    weight: 1
+    value: 0
+    stackable: false
+    flavor: >
+      It smells faintly of something you can't name. Something alive,
+      but not in the usual direction.
+
+  # --- Trade Goods ---
+
+  - id: cigarettes
+    name: "Cigarettes"
+    description: "Unopened pack. Currency, comfort, or vice — your call."
+    type: trade
+    weight: 1
+    value: 7
+    stackable: true
+    flavor: >
+      Half the Undermarket runs on these. The other half runs on
+      resentment and strong opinions.
+
+  - id: coffee_grounds
+    name: "Coffee Grounds"
+    description: "Pre-ground, sealed. Possibly the most valuable thing you own."
+    type: trade
+    weight: 1
+    value: 15
+    stackable: false
+    flavor: >
+      You've thought about just keeping this. You haven't opened it yet.
+      When you do, it will mean something.
+
+  - id: blank_notebook
+    name: "Blank Notebook"
+    description: "Empty. Clean pages. Harder to find than you'd think."
+    type: trade
+    weight: 1
+    value: 5
+    stackable: false
+    flavor: >
+      The Quiet will trade almost anything for paper. Knowledge is their
+      only religion.

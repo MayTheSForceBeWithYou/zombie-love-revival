@@ -1,0 +1,203 @@
+# game/data/missions.yaml
+# -----------------------------------------------------------------------------
+# Mission data for Zombie Love Revival.
+#
+# This file defines all missions used by:
+#   - tools/generate_rpy_from_yaml.py (to scaffold mission stubs)
+#   - game/systems/mission_system.rpy (loaded at runtime)
+#
+# Format notes:
+#   - id:           snake_case, unique identifier
+#   - type:         scavenge | escort | negotiate | investigate | relationship | crisis
+#   - chapter:      which chapter this mission becomes available
+#   - location:     must match a defined location key
+#   - status:       initial status (almost always "inactive")
+#   - prerequisites: flags and relationship minimums required to unlock
+#   - outcomes:     success/failure branches with rewards and next labels
+# -----------------------------------------------------------------------------
+
+missions:
+
+  - id: find_the_pharmacy
+    title: "Old Reliable"
+    type: scavenge
+    chapter: 1
+    location: meridian_pharmacy
+    status: inactive
+    description: >
+      The shelter's medical supplies are critically low. Sable needs someone
+      to check the old Meridian Pharmacy on the edge of the Gray before the
+      Runner activity picks up after dark.
+    prerequisites:
+      flags: []
+      relationships: {}
+      completed_missions: []
+    objectives:
+      primary: "Find medical supplies at Meridian Pharmacy"
+      secondary:
+        - "Find the prescription log (helps identify survivors nearby)"
+        - "Return before nightfall (avoids Runner activity)"
+    outcomes:
+      success:
+        description: >
+          Riley returns with medical supplies. Sable is visibly relieved,
+          though she won't say so directly.
+        rewards:
+          items:
+            medication: 3
+            bandage: 5
+          relationship_changes:
+            sable:
+              trust: 2
+          flags_set:
+            pharmacy_cleared: true
+        next_scene: mission_pharmacy_complete
+      failure:
+        description: >
+          Riley couldn't reach the pharmacy or came back empty-handed.
+          Sable handles it. She always handles it.
+        consequences:
+          items_lost: []
+          relationship_changes:
+            sable:
+              trust: -1
+          flags_set:
+            pharmacy_failed: true
+        next_scene: mission_pharmacy_failed
+
+  - id: meet_the_cultivators
+    title: "Bloom Watchers"
+    type: investigate
+    chapter: 1
+    location: bloom_greenhouse
+    status: inactive
+    description: >
+      Crow mentioned a group called the Cultivators who study the infected in
+      the Bloom district. They might know something about Zed — about what
+      the Bonded state actually means.
+    prerequisites:
+      flags: []
+      relationships:
+        crow: 1          # need to have talked to Crow first
+      completed_missions: []
+    objectives:
+      primary: "Make contact with the Cultivators"
+      secondary:
+        - "Learn what they know about Bonded cases"
+        - "Do not damage any Bloom specimens (they notice everything)"
+    outcomes:
+      success:
+        description: >
+          The Cultivators are unsettling but not hostile. They know more
+          about Zed than they're immediately willing to share.
+        rewards:
+          items: {}
+          relationship_changes:
+            zed:
+              affection: 1
+          flags_set:
+            met_cultivators: true
+        next_scene: mission_cultivators_complete
+      failure:
+        description: >
+          Something went wrong. The Cultivators won't be cooperative
+          for a while.
+        consequences:
+          items_lost: []
+          relationship_changes: {}
+          flags_set:
+            cultivators_hostile: true
+        next_scene: mission_cultivators_failed
+
+  - id: crows_favor
+    title: "A Favor for Crow"
+    type: escort
+    chapter: 1
+    location: undermarket
+    status: inactive
+    description: >
+      Crow needs a package delivered to the Undermarket — and would rather not
+      explain what's in it. He promises it's worth your time. His promises have
+      about a sixty percent success rate.
+    prerequisites:
+      flags: []
+      relationships:
+        crow: 2
+      completed_missions: []
+    objectives:
+      primary: "Deliver the package to Crow's contact at the Undermarket"
+      secondary:
+        - "Don't open the package (Crow will know somehow)"
+        - "Return with the payment intact"
+    outcomes:
+      success:
+        description: >
+          The delivery goes smoothly. Crow is relieved in a way he tries very
+          hard to make look casual.
+        rewards:
+          items:
+            water_bottle: 3
+            energy_bar: 2
+          relationship_changes:
+            crow:
+              affection: 2
+              trust: 1
+          flags_set:
+            crow_favor_done: true
+        next_scene: mission_crow_favor_complete
+      failure:
+        description: >
+          Something went sideways. Crow isn't angry — that would require him
+          to admit he cared — but he's quieter than usual.
+        consequences:
+          items_lost: []
+          relationship_changes:
+            crow:
+              affection: -1
+          flags_set:
+            crow_favor_failed: true
+        next_scene: mission_crow_favor_failed
+
+  - id: zed_in_the_bloom
+    title: "Still Water"
+    type: relationship
+    chapter: 1
+    location: bloom_district
+    status: inactive
+    description: >
+      Zed has been spending time near the old community garden in the Bloom.
+      You keep finding yourself walking in that direction.
+    prerequisites:
+      flags: []
+      relationships:
+        zed: 2
+      completed_missions: []
+    objectives:
+      primary: "Spend time with Zed in the Bloom district"
+      secondary:
+        - "Pay attention to what Zed is doing (this matters later)"
+        - "Don't bring weapons into the Bloom (it changes the dynamic)"
+    outcomes:
+      success:
+        description: >
+          You sit with Zed as the light fades. Neither of you moves for a while.
+          It doesn't feel like nothing.
+        rewards:
+          items: {}
+          relationship_changes:
+            zed:
+              affection: 3
+              trust: 1
+          flags_set:
+            bloom_visit_one: true
+        next_scene: mission_zed_bloom_complete
+      failure:
+        description: >
+          Something spooked Zed — or you. The visit ends early.
+          You'll try again.
+        consequences:
+          items_lost: []
+          relationship_changes: {}
+          flags_set:
+            bloom_visit_interrupted: true
+        next_scene: mission_zed_bloom_interrupted

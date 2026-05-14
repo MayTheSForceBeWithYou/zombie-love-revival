@@ -1,0 +1,134 @@
+# .github/workflows/ci.yml
+# -----------------------------------------------------------------------------
+# CI workflow for Zombie Love Revival.
+#
+# Runs on every push and pull request to main.
+# Keeps things lightweight — this is a narrative game, not a distributed system.
+#
+# Steps:
+#   1. Validate Python syntax (all .py files in tools/)
+#   2. Validate YAML formatting (all .yaml files in game/data/)
+#   3. Lint Markdown files (docs/ and prompts/)
+#   4. Run the YAML validation script (tools/generate_rpy_from_yaml.py)
+# -----------------------------------------------------------------------------
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  # ---------------------------------------------------------------------------
+  # Job 1: Validate Python syntax
+  # ---------------------------------------------------------------------------
+  python-syntax:
+    name: Python Syntax Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax (py_compile)
+        run: |
+          echo "Checking Python syntax in tools/..."
+          python -m py_compile tools/generate_rpy_from_yaml.py
+          echo "✓ Python syntax OK"
+
+  # ---------------------------------------------------------------------------
+  # Job 2: Validate YAML formatting
+  # ---------------------------------------------------------------------------
+  yaml-lint:
+    name: YAML Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Lint YAML files
+        run: |
+          echo "Linting YAML files in game/data/..."
+          yamllint -d relaxed game/data/characters.yaml
+          yamllint -d relaxed game/data/missions.yaml
+          yamllint -d relaxed game/data/items.yaml
+          echo "✓ YAML formatting OK"
+
+  # ---------------------------------------------------------------------------
+  # Job 3: Markdown lint
+  # ---------------------------------------------------------------------------
+  markdown-lint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Lint Markdown files
+        run: |
+          echo "Linting Markdown files..."
+          markdownlint docs/ prompts/ README.md \
+            --config .markdownlint.json \
+            || true
+          # '|| true' prevents CI failure on style warnings during bootstrap.
+          # Remove '|| true' once the project is fully formatted.
+          echo "✓ Markdown lint complete"
+
+  # ---------------------------------------------------------------------------
+  # Job 4: Run YAML validation script
+  # ---------------------------------------------------------------------------
+  validate-data:
+    name: Validate Game Data
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run data validator
+        run: |
+          echo "Running YAML data validator..."
+          python tools/generate_rpy_from_yaml.py --validate-only
+          echo "✓ Game data validation passed"
