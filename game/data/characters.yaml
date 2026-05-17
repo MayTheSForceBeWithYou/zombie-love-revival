@@ -1,0 +1,145 @@
+# game/data/characters.yaml
+# -----------------------------------------------------------------------------
+# Character data for Zombie Love Revival.
+#
+# This file defines NPC and companion metadata used by:
+#   - tools/generate_rpy_from_yaml.py (to scaffold character define blocks)
+#   - The relationship system (for starting values and display names)
+#   - Reference by AI agents generating dialogue or scenes
+#
+# Format notes:
+#   - id:           snake_case, matches the Python variable in script.rpy
+#   - faction:      greenwarden | cultivators | rovers | quiet | none
+#   - role:         their function in the story (free text)
+#   - age_range:    approximate (keeps things human, not statistical)
+#   - pronouns:     used in generated dialogue
+# -----------------------------------------------------------------------------
+
+characters:
+
+  - id: riley
+    name: Riley
+    nickname: null
+    age_range: "mid-20s"
+    pronouns: "they/them"       # default; player selects at start
+    faction: none
+    role: protagonist
+    location: green_zone
+    portrait: images/characters/riley_neutral.png
+    personality:
+      core_traits:
+        - curious
+        - dry wit
+        - quietly stubborn
+        - self-doubting
+      coping_mechanism: "Humor used as deflection; journaling (never shown to anyone)"
+    motivations:
+      primary: "Find a reason to stay in one place"
+      secondary: "Understand what is happening with Zed"
+      hidden: "Prove to themselves they are still capable of love"
+    fears:
+      - "That they have become hollow"
+      - "That caring about someone means watching them die"
+    relationship_defaults:
+      zed: 0
+      sable: 0
+      crow: 1
+    dialogue_style: >
+      Short, observational sentences. Dry understatement. Internal monologue
+      (italics) tends to be more honest than spoken dialogue. Occasional bursts
+      of more emotional language when caught off guard.
+
+  - id: zed
+    name: Zed
+    nickname: null
+    age_range: "unknown (appears late 20s)"
+    pronouns: "they/them"
+    faction: none
+    role: zombie_love_interest
+    location: bloom_district
+    portrait: images/characters/zed_neutral.png
+    personality:
+      core_traits:
+        - patient
+        - observant
+        - strangely gentle
+        - melancholy
+      coping_mechanism: "Arrangement of objects; proximity to bonded person"
+    motivations:
+      primary: "Proximity to Riley (instinctive bonded behavior)"
+      secondary: "Protection of Riley"
+      hidden: "Connection to the Bloom's fungal network (unknown)"
+    fears:
+      - "Separation from Riley"
+      - "Further regression of the infection"
+    special_note: >
+      Zed does not speak. All communication is physical, gestural, or environmental.
+      Never write spoken dialogue for Zed. Narrate their communication from
+      Riley's perspective.
+    relationship_defaults:
+      riley: 0
+      sable: -2
+      crow: 1
+
+  - id: sable
+    name: Sable Voss
+    nickname: null
+    age_range: "late 30s"
+    pronouns: "she/her"
+    faction: greenwarden
+    role: survivor_leader
+    location: shelter_9
+    portrait: images/characters/sable_neutral.png
+    personality:
+      core_traits:
+        - tactical
+        - guarded warmth
+        - impatient with abstraction
+        - privately exhausted
+      coping_mechanism: "Action and task-completion; suppresses processing"
+    motivations:
+      primary: "Keep Shelter 9 alive"
+      secondary: "Maintain Green Zone stability without becoming Council's puppet"
+      hidden: "Discover who was responsible for the Fall"
+    fears:
+      - "That her hard choices have changed her irreparably"
+      - "Losing control of the shelter to Council politics"
+    relationship_defaults:
+      riley: 0
+      zed: -3
+      crow: 3
+    dialogue_style: >
+      Clipped, efficient. Military-adjacent without being cliché. Sardonic humor,
+      always dry. When she says something quietly it carries more weight than shouting.
+
+  - id: crow
+    name: Cornelius Abara
+    nickname: Crow
+    age_range: "mid-20s"
+    pronouns: "he/him"
+    faction: rovers
+    role: comic_relief_depth
+    location: traveling
+    portrait: images/characters/crow_neutral.png
+    personality:
+      core_traits:
+        - performatively chaotic
+        - genuinely warm
+        - avoidant of sincerity
+        - competitive
+      coping_mechanism: "Comedy as armor; motion as safety"
+    motivations:
+      primary: "Keep moving; maintain his network"
+      secondary: "Find out what happened to his sister"
+      hidden: "He already knows she is gone; he isn't ready to stop looking"
+    fears:
+      - "Staying somewhere long enough to care about it"
+      - "Running out of road"
+    relationship_defaults:
+      riley: 2
+      sable: 3
+      zed: 2
+    dialogue_style: >
+      Fast-talking, riffing. Pop culture references from before the Fall.
+      Jokes that land and jokes that don't — he knows the difference.
+      Occasional sentences that land like punches. When upset, talks faster.
