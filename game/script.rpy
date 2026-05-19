@@ -40,6 +40,10 @@ define narrator = Character(None, kind=nvl)
 # define zed = Character("Zed")  # <-- intentionally commented out
 
 
+# Placeholder backgrounds until art assets exist.
+image bg green_zone_gate = Solid("#2a3a2a", xsize=1280, ysize=720)
+
+
 ##############################################################################
 # GAME START
 # This label is called automatically when a new game begins.
@@ -92,7 +96,7 @@ label start:
 
 label chapter_01_prologue:
 
-    scene black with fade
+    scene black with dissolve_fast
     play music "audio/ambient_gray.ogg" fadein 2.0
     # ^ Placeholder path — this audio file does not exist yet.
     #   Create game/audio/ambient_gray.ogg when audio assets are available.
@@ -111,7 +115,7 @@ label chapter_01_prologue:
     Long enough that you've started calling it home.
     """
 
-    scene bg_green_zone_gate with dissolve
+    scene bg green_zone_gate with dissolve_fast
     # ^ Placeholder: bg_green_zone_gate.png should be in game/images/
 
     riley "Right. Day three hundred and something."
@@ -127,6 +131,6 @@ label placeholder_main_hub:
     # This label will be replaced by the real hub scene in Chapter 1.
     # For now it just ends the demo gracefully.
 
-    narrator "[ Chapter 1 content goes here. See game/chapters/chapter_01.rpy ]"
+    narrator "[[ Chapter 1 content goes here. See game/chapters/chapter_01.rpy ]]"
 
     return

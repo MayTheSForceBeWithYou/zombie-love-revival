@@ -51,8 +51,8 @@ default preferences.fullscreen = False
 # 0 = instant; increase for typewriter effect
 define config.default_text_cps = 0
 
-# Auto-forward delay (seconds per character)
-define config.afm_time = 15
+# Auto-forward delay (0–30; larger = longer wait between lines)
+default preferences.afm_time = 15
 
 # Rollback: allow players to rewind dialogue
 define config.rollback_enabled = True
@@ -87,9 +87,6 @@ define config.has_voice = False   # Enable when voice acting is added
 ##############################################################################
 # TRANSITIONS
 ##############################################################################
-
-# Default scene transition (used by "with" statements)
-define config.with_statement_should_wait = True
 
 # Transition presets — reference these by name in scripts
 define dissolve_slow  = Dissolve(1.5)
