@@ -41,7 +41,11 @@ define narrator = Character(None, kind=nvl)
 
 
 # Placeholder backgrounds until art assets exist.
-image bg green_zone_gate = Solid("#2a3a2a", xsize=1280, ysize=720)
+image bg green_zone_gate = Solid(
+    "#2a3a2a",
+    xsize=config.screen_width,
+    ysize=config.screen_height,
+)
 
 
 ##############################################################################
