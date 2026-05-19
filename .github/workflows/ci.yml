@@ -153,6 +153,6 @@ jobs:
 
       - name: Lint Ren'Py project
         run: renpy-cli . lint
-        
+
       - name: Run Ren'Py smoke testcase
         run: renpy-cli . test smoke_start --hide-header --report-detailed
