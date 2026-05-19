@@ -120,7 +120,8 @@ label chapter_01_prologue:
     """
 
     scene bg green_zone_gate with dissolve_fast
-    # ^ Placeholder: bg_green_zone_gate.png should be in game/images/
+    # ^ Placeholder: uses the Solid-defined image "bg green_zone_gate" for now.
+    #   Replace with a real background asset later if/when art is added.
 
     riley "Right. Day three hundred and something."
 
