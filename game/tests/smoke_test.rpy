@@ -8,6 +8,6 @@ testcase smoke_start:
     $ init_inventory()
     $ init_missions()
 
-    assert eval 'relationships["crow"]["affection"] == 1'
-    assert eval 'inventory["bandage"] == 3'
-    assert eval 'missions["find_the_pharmacy"]["status"] == "inactive"'
+    assert eval (relationships["crow"]["affection"] == 1)
+    assert eval (inventory["bandage"] == 3)
+    assert eval (missions["find_the_pharmacy"]["status"] == "inactive")
