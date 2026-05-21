@@ -132,3 +132,27 @@ jobs:
           echo "Running YAML data validator..."
           python tools/generate_rpy_from_yaml.py --validate-only
           echo "✓ Game data validation passed"
+
+  # ---------------------------------------------------------------------------
+  # Job 5: RenPy Smoke Test
+  # ---------------------------------------------------------------------------
+  renpy-smoke-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ren'Py
+        uses: remarkablegames/setup-renpy@v1
+
+      - name: Show Ren'Py version
+        run: renpy-cli --version
+
+      - name: Lint Ren'Py project
+        run: renpy-cli . lint
+
+      - name: Run Ren'Py smoke testcase
+        run: renpy-cli . test smoke_start --hide-header --report-detailed
