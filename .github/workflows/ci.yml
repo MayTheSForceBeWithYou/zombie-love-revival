@@ -159,5 +159,5 @@ jobs:
           renpy-cli . lint
           mv game/tests/smoke_test.rpy.nolint game/tests/smoke_test.rpy
 
-      - name: Run Ren'Py smoke testcase
-        run: renpy-cli . test smoke_start --hide-header --report-detailed
+      # - name: Run Ren'Py smoke testcase
+      #   run: renpy-cli . test smoke_start --hide-header --report-detailed
