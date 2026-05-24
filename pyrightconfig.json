@@ -1,0 +1,9 @@
+{
+  "exclude": [
+    "**/game/**",
+    "**/renpy/**"
+  ],
+  "ignore": [
+    "**/game/tests/smoke_test.rpy"
+  ]
+}

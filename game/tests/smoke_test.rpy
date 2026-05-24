@@ -8,6 +8,8 @@ testsuite global:
     teardown:
         exit
 
+## Smoke test for CI. Keep this deterministic and fast.
+
 testcase smoke_start:
     $ init_relationships()
     $ init_inventory()
