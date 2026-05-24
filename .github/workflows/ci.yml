@@ -152,7 +152,12 @@ jobs:
         run: renpy-cli --version
 
       - name: Lint Ren'Py project
-        run: renpy-cli . lint
+        run: |
+          # testsuite/testcase statements are only parsed in test mode, not lint mode.
+          # Temporarily rename test files so the linter skips them.
+          mv game/tests/smoke_test.rpy game/tests/smoke_test.rpy.nolint
+          renpy-cli . lint
+          mv game/tests/smoke_test.rpy.nolint game/tests/smoke_test.rpy
 
       - name: Run Ren'Py smoke testcase
         run: renpy-cli . test smoke_start --hide-header --report-detailed
