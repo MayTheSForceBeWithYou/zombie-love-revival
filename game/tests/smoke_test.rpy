@@ -1,5 +1,4 @@
 ## Smoke tests — no dialogue, transitions, or audio (avoids GUI hangs in test mode).
-
 testsuite global:
     before testcase:
         $ _test.transition_timeout = 0.05
