@@ -11,7 +11,7 @@
 #
 # Naming conventions:
 #   - Labels:      snake_case         (e.g., scene_riley_meets_sable)
-#   - Characters:  CamelCase variable (e.g., riley, sable, crow)
+#   - Characters:  camelCase variable (e.g., riley, sable, crow)
 #   - Flags:       snake_case string  (e.g., "noticed_gifts")
 #   - Images:      snake_case path    (e.g., bg_green_zone_gate)
 ##############################################################################
